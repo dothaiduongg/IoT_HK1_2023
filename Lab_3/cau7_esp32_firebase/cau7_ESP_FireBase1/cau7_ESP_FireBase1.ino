@@ -45,11 +45,13 @@ void setup()
 
     pinMode(MQ2_A, INPUT);
     pinMode(MQ2_D, INPUT);
+
     pinMode(LEDXANH, OUTPUT);
     digitalWrite(LEDXANH, LOW);
 
     pinMode(LEDVANG, OUTPUT);
     digitalWrite(LEDVANG, LOW);
+    
     pinMode(LEDDO, OUTPUT);
     digitalWrite(LEDDO, LOW);
 
@@ -99,13 +101,14 @@ void loop()
   Serial.print(h);
   Serial.println("%  ");
 
-  Firebase.setFloat( fbdo,"Nhiet do", t);
 
+  //gui cac tin hieu nhiet do va do am len firebase
+  Firebase.setFloat( fbdo,"Nhiet do", t);
   Firebase.setFloat ( fbdo,"Do am", h);
 
   delay(200);
 
-
+  //doc tin hieu analog cua cam bien khi gas
   A_value = analogRead(MQ2_A);
 
   
@@ -113,6 +116,8 @@ void loop()
   {
     Serial.printf("Analog Value: %d\n", A_value);
     Serial.printf("Digital Value: %d\n", D_value);
+
+    //gui gia tri tin hieu analog khi gas len firebase
     Serial.printf("Update ... %s\n", Firebase.setInt(fbdo, "/data/value", A_value) ? "Ok" : fbdo.errorReason().c_str());
     dataMillis = millis();
   }
@@ -123,19 +128,19 @@ void loop()
   //   digitalWrite(LED, LOW);
   //   delay(200);
   // }
-  if(2000<A_value){
+  if(2000<A_value){                         //neu gia tri analog cua khi gas tra ve lon hon 2000, led sang
     digitalWrite(LEDVANG, HIGH);
     delay(200);
     digitalWrite(LEDVANG, LOW);
     delay(200);
   }
-    if( t > 40){
+    if( t > 40){                            //neu gia tri nhiet do tra ve lon hon 40, led sang
     digitalWrite(LEDDO, HIGH);
     delay(200);
     digitalWrite(LEDDO, LOW);
     delay(200);
   }
-    if( h > 70){
+    if( h > 70){                            //neu gia tri do am tra ve lon hon 70, led sang
     digitalWrite(LEDXANH, HIGH);
     delay(200);
     digitalWrite(LEDXANH, LOW);
