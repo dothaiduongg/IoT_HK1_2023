@@ -129,13 +129,13 @@ void loop()
     digitalWrite(LEDVANG, LOW);
     delay(200);
   }
-    if(0 > t || t > 40){
+    if( t > 40){
     digitalWrite(LEDDO, HIGH);
     delay(200);
     digitalWrite(LEDDO, LOW);
     delay(200);
   }
-    if(0 > h || h > 70){
+    if( h > 70){
     digitalWrite(LEDXANH, HIGH);
     delay(200);
     digitalWrite(LEDXANH, LOW);
